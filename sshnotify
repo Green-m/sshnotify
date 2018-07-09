@@ -1,0 +1,61 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          sshnotify
+# Required-Start:    $remote_fs $syslog $time
+# Required-Stop:     $remote_fs $syslog $time
+# Default-Start:     2 3 4 5
+# Default-Stop:
+# Short-Description: SSH Login Notification  
+# Description:       sshnotify is a tool to notify ssh login events.
+### END INIT INFO
+
+DESC="sshnotify daemon"
+NAME=sshnotify
+DAEMON=/usr/local/bin/sshnotify.sh
+PIDFILE=/var/run/sshnotify.pid
+SCRIPTNAME=/etc/init.d/"$NAME"
+
+test -x $DAEMON || exit 0
+
+do_start()
+{   
+    test -f $PIDFILE && echo "$NAME is running" && exit 0
+    echo "Starting service $NAME" 
+    $DAEMON > /dev/null 2>&1 &
+    test $? -eq 0 && echo $! > $PIDFILE
+    #echo $! > $PIDFILE
+}
+
+do_stop()
+{
+    echo "Stopping $NAME"
+    pid=`cat $PIDFILE`
+    kill $(ps -o pid= --ppid $pid)
+    kill $pid
+    rm $PIDFILE
+}
+
+case "$1" in 
+start)
+   do_start
+   ;;
+stop)
+   do_stop
+   ;;
+restart|force_reload|reload)
+   $0 do_stop
+   $0 do_start
+   ;;
+status)
+   if [ -e $PIDFILE ]; then
+      echo sshnotify.sh is running, pid=`cat $PIDFILE`
+   else
+      echo sshnotify.sh is NOT running
+      exit 1
+   fi
+   ;;
+*)
+   echo "Usage: $0 {start|stop|status|restart}"
+esac
+
+exit 0
