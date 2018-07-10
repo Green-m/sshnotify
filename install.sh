@@ -21,7 +21,7 @@ elif cat /proc/version | grep -q -E -i "centos|red hat|redhat"; then
     release="centos"
 fi
 
-if [[ $release == 'debian'|| 'ubuntu' ]]; then
+if [[ $release == 'debian'||'ubuntu' ]]; then
     apt-get update
     type wget || apt-get install -y wget
     mkdir /etc/sshnotify/
@@ -35,7 +35,7 @@ if [[ $release == 'debian'|| 'ubuntu' ]]; then
     systemctl daemon-reload
     service sshnotify start && echo "sshnotify service has started."
 
-elif [[ $release == 'centos' ]]
+elif [[ $release == 'centos' ]]; then
     yum update
     yum install -y inotify-tools
 fi
