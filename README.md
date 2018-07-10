@@ -18,9 +18,10 @@ white_ip=(1.1.1.1 8.8.8.8)
 
 That sshnotify would send notification except these situations below:
 
-- The login user is root or test 
+- The login user is `root` or `test` 
 
-- The ip login from is 1.1.1.1 or 8.8.8.8 
+- The ip login from is `1.1.1.1` or `8.8.8.8`  
+
 
 ## email config 
 
@@ -32,3 +33,10 @@ sendmailpass=xxxxxxxx
 mailserver=smtp.gmail.com:587
 sendtouser=yyyyyy@gmail.com
 ```
+
+*Notice*: After any config changed, run `service sshnotify restart` to reload.  
+
+## Log
+
+Verbose log is locate `/var/log/sshnotify/sshnotify.log`
+
