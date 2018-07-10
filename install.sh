@@ -36,6 +36,5 @@ if [[ $release == 'debian'||'ubuntu' ]]; then
     service sshnotify start && echo "sshnotify service has started."
 
 elif [[ $release == 'centos' ]]; then
-    yum update
-    yum install -y inotify-tools
+    echo "Now only support debian and ubuntu." && exit 1
 fi
