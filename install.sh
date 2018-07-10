@@ -25,10 +25,10 @@ if [[ $release == 'debian'|| 'ubuntu' ]]; then
     apt-get update
     type wget || apt-get install -y wget
     mkdir /etc/sshnotify/
-    wget -q https://raw.githubusercontent.com/Green-m/sshnotify/master/sshnotify -O /etc/init.d/sshnotify
-    wget -q https://raw.githubusercontent.com/Green-m/sshnotify/master/sshnotify.sh -O /usr/local/bin/sshnotify.sh
-    wget -q https://raw.githubusercontent.com/Green-m/sshnotify/master/whitelist.config -O /etc/sshnotify/whitelist.config
-    wget -q https://raw.githubusercontent.com/Green-m/sshnotify/master/email.config -O /etc/sshnotify/email.config
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Green-m/sshnotify/master/sshnotify -O /etc/init.d/sshnotify
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Green-m/sshnotify/master/sshnotify.sh -O /usr/local/bin/sshnotify.sh
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Green-m/sshnotify/master/whitelist.config -O /etc/sshnotify/whitelist.config
+    wget -N --no-check-certificate https://raw.githubusercontent.com/Green-m/sshnotify/master/email.config -O /etc/sshnotify/email.config
     chmod +x /usr/local/bin/sshnotify.sh
     chmod +x /etc/init.d/sshnotify
     apt-get install -y inotify-tools
