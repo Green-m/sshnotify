@@ -1,14 +1,23 @@
 #!/bin/bash
-config_file=/etc/sshnotify/whitelist.config
+# Code by Green-m
+white_config=/etc/sshnotify/whitelist.config
 log_file=/var/log/sshnotify/sshnotify.log
+mail_config=/etc/sshnotify/email.config
+
+# The matchine identity name, change it if you want.
+matchine_name=`uname -rn`
 
 white_user=()
 white_ip=()
 res1=1
 res2=1
 
-if [[ -f $config_file ]]; then 
-  . $config_file
+if [[ -f $white_config ]]; then 
+  . $white_config
+fi
+
+if [[ -f $mail_config ]]; then 
+  . $mail_config
 fi
 
 function log_to_file() {
@@ -16,9 +25,8 @@ function log_to_file() {
 }
 
 function emailsend() {
-    local text="$1 login from $2 at $3"
-    #sendEmail -f xxxxxxxxxxxxxxxxx@gmx.com -xu 'xxxxxxxxxx' -xp 'xxxxxxxxxxxxxxxxxx' -t xxxxxxxxxxxxxx@gmail.com -s mail.gmx.com:587 -u "SSH Login Warning" -m $text -o tls=yes -q
-    log_to_file "Email sended"
+    local text="$1 have logged in $matchine_name from $2 at $3"
+    log_to_file `sendEmail -f $sendmailuser -xu $sendmailuser -xp $sendmailpass -t $sendtouser -s $mailserver -u "SSH Login Notification" -m $text -o tls=yes`
 }
 
 #check_contain_arr 'xxx' arr[@]

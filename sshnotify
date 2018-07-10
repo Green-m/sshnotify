@@ -1,4 +1,5 @@
 #!/bin/sh
+# Code by Green-m
 ### BEGIN INIT INFO
 # Provides:          sshnotify
 # Required-Start:    $remote_fs $syslog $time
